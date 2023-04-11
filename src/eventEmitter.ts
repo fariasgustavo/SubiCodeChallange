@@ -5,9 +5,11 @@ class EventEmitterError extends Error {
 }
 
 export class EventEmitter {
-    private events: Record<string, ((payload?: Record<string, any>) => void)[]> = {};
+    private events: Record<string, ((payload?: Record<string, any>) => void)[]>;
     
-    constructor() {}
+    constructor() {
+        this.events = {};
+    }
 
     public register(eventName: string, eventHandler: (payload?: Record<string, any>) => void): void {
         if(!this.events[eventName]) {
