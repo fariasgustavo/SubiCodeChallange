@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  event-emitter-test:
+    build: .
+    container_name: event_emitter_test_container
+    volumes:
+      - .:/usr/src/app
