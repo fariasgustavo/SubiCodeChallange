@@ -1,3 +1,9 @@
+class EventEmitterError extends Error {
+    constructor(message: string) {
+        super(`EventEmitterError: ${message}`);
+    }
+}
+
 export class EventEmitter {
     private events: Record<string, ((payload?: Record<string, any>) => void)[]> = {};
     
@@ -12,6 +18,10 @@ export class EventEmitter {
     }
 
     public emit(eventName: string, payload?: Record<string, any>): void {
+        if(!this.events[eventName]) {
+            throw new EventEmitterError(`event ${eventName} is not registered as an event map`);
+        }
+
         this.events[eventName].forEach(handler => handler(payload));
     }
 }
